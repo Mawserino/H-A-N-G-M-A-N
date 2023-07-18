@@ -10,7 +10,7 @@ def fetch_random_word():
 def hangman():
     word = fetch_random_word()
     letters_tried = []
-    incorrect_guess = 0
+    incorrect_guess = 6
     simple_art = [
         '''
          O
@@ -47,11 +47,20 @@ def update_hidden(word, letters_tried, hidden_word):
             hidden_word[i] = word[i]
     return hidden_word
 
+def stop_game(hidden_word):
+    for i in hidden_word:
+        if i == "_":
+            return False
+    return True
+
+
 def game():
     word, letters_tried, incorrect_guess, simple_art = hangman()
     hidden_word = ["_"] * len(word)
-
-    while incorrect_guess < len(simple_art):
+    i = 0
+    while i < incorrect_guess:
+        print("Max Guess: 6")
+        print("Incorrect guesses:", i)
         print("Word: ", hidden_word)
         print("Words: ", word)
         guess = input("Guess a letter: ").upper()
@@ -64,6 +73,14 @@ def game():
 
         if guess in word:
             hidden_word = update_hidden(word, letters_tried, hidden_word)
+            if stop_game(hidden_word):
+                print("Congratulations, You Won!")
+                return
+        else:
+            i += 1
+            print("Incorrect guess!")
+    print("Incorrect guesses:", i)
+    print("Game OVER, YOU SUCK!")
 def main():
     game()
 
