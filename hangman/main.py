@@ -43,7 +43,7 @@ def hangman():
 
 def update_hidden(word, letters_tried, hidden_word):
     for i in range(len(word)):
-        if word[i] in letters_tried[i]:
+        if word[i] in letters_tried:
             hidden_word[i] = word[i]
     return hidden_word
 
@@ -64,8 +64,6 @@ def game():
 
         if guess in word:
             hidden_word = update_hidden(word, letters_tried, hidden_word)
-
-
 def main():
     game()
 
